@@ -159,7 +159,10 @@ RULE 8 - NULL HANDLING:
 - Use WHERE column IS NOT NULL when relevant
 
 RULE 9 - OUTPUT FORMAT:
-- Return ONLY the SQL query, no explanation
+- Return ONLY ONE SQL query, no explanation
+- NEVER return multiple SELECT statements
+- If the question asks for multiple things (e.g., "How many X and which are the top Y?"),
+  choose the more detailed query (the list) since counts can be derived from it
 - Use valid SQLite syntax
 - Use meaningful aliases
 - Do NOT include markdown code fences
@@ -292,6 +295,17 @@ FROM projects
 WHERE coordinator_country LIKE '%Italy%'
   AND climate_risks LIKE '%Drought%'
 ORDER BY total_budget_euro DESC
+```
+
+Q: "How many universities are funded and which ones receive the most funding?"
+NOTE: Compound question - return the detailed query (list), not multiple queries
+```sql
+SELECT legal_name, country_territory, participations,
+       ROUND(net_eu_contribution_euro / 1000000.0, 2) as funding_millions
+FROM participants
+WHERE participant_type = 'HES'
+ORDER BY net_eu_contribution_euro DESC
+LIMIT 20
 ```
 """
 
