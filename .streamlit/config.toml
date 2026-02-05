@@ -1,0 +1,10 @@
+[theme]
+primaryColor = "#2E7D32"              # Climate green (buttons, links)
+backgroundColor = "#FFFFFF"            # Pure white (main background)
+secondaryBackgroundColor = "#E8F5E9"  # Light green (sidebar, widgets)
+textColor = "#1B5E20"                 # Dark green (text)
+font = "sans-serif"
+
+[client]
+showErrorDetails = false
+toolbarMode = "minimal"
